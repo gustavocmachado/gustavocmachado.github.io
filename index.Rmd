@@ -3,6 +3,7 @@ title: "Home"
 ---
 
 ```{r setup, include=FALSE}
+library(scholar)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -12,8 +13,7 @@ This is my first online CV.
 
 My number of peer-reviewed publications:
 
-```{r scholar, echo=FALSE}
-library(scholar)
+```{r publications, echo=FALSE}
 get_num_articles("DSmw-4YAAAAJ&hl")
 ```
 
@@ -22,3 +22,24 @@ Number of journals I have published in:
 ```{r journals, echo=FALSE}
 get_num_distinct_journals("DSmw-4YAAAAJ&hl")
 ```
+
+Total citations:
+```{r citations, echo=FALSE}
+get_citation_history("DSmw-4YAAAAJ&hl")
+```
+
+```{r co-authors, echo=FALSE}
+network <- get_coauthors("DSmw-4YAAAAJ&hl")
+plot_coauthors(network, size_labels = 5)
+```
+
+My publications:
+```{r journal metrics, echo=FALSE}
+id <- get_publications("DSmw-4YAAAAJ&hl")
+impact <- get_impactfactor(journals=id$journal, max.distance = 0.1)
+id <- cbind(id, impact)
+id
+```
+
+
+
